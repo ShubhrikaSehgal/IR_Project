@@ -49,10 +49,51 @@ class XmlCollection:
                     if(not re.match(r'\n',current_line)):
                         subjects.add(re.sub(r'<KeyWord id=.+?>','',current_line).replace("</KeyWord>","").replace("\n","").strip())
                 current_line=XmlFile.readline()
-                    
+                
             ######################## Testing        
-            if(count==50):   
-                break
-            #######################
+#            if(count==50):   
+#                break
+            if(count%5000==0):
+                print(count)
+            #######################4
+        
+        print(count)
         return subjects
+    
+    def getAbstract(self):
+        ############## Testing 
+        
+        ##############
+        #open files one by one to add abstract
+        abstract = set()
+        count=0
+        for file in self.XmlFileLocation:
+            XmlFile=open(file,"r",encoding="utf8")
+            # check if there is any content in the document
+            current_line=XmlFile.readline()
+            if (not current_line):
+                XmlFile.close() 
+                return
+            # read data, line by line if readDoc is True
+            readDoc=False
+            while(current_line):
+              if(re.search(r'<Body>',current_line)):
+                    current_line=XmlFile.readline()
+                    readDoc=True
+              elif(re.search(r'</Body>',current_line)):
+                    readDoc=False
+              if(readDoc):
+                    abstract.add(re.compile(r'<[^>]+>').sub('', current_line))
+              current_line=XmlFile.readline()
+            count+=1
+                
+            ######################## Testing        
+            if(count==5):   
+                break
+#            if(count%5000==0):
+#                print(count)
+            #######################4
+        
+        print(count)
+        return abstract
         

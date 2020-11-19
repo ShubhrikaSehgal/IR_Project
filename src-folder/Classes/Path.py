@@ -9,10 +9,10 @@ DataWebDir = "data//output//docset.trecweb"
 StopwordDir="data//input//stopword.txt"
 
 # uncompleted address of preprocessed corpus.
-ResultHM1="data//result."
+Result="data//result."
 
 # address of generated Text index file.
-IndexTextDir="data//indextext//"
+IndexXmlDir="data//indexxml//"
 
 # address of generated Web index file.
 IndexWebDir="data//indexweb//"
