@@ -18,16 +18,14 @@ class Processing:
         self.sno = SnowballStemmer('english')
         self.sws_english = set(line.strip() for line in open(Path.StopwordDir, "r", encoding="utf8"))
         return None
+    
     def processContent(self,content):
         # Tokenize 
         tokens = self.tokenizer.tokenize(content)
         # Normalization
         stemmedWords = []
         for token in tokens:
-            stemmedWords.append(self.sno.stem(token.lower()))
-            
-        # Stopword removal
-        normalizedWords = [word for word in stemmedWords if word not in self.sws_english]
-        
-        return normalizedWords
+            if token not in self.sws_english:
+                stemmedWords.append(self.sno.stem(token.lower()))
+        return stemmedWords
 

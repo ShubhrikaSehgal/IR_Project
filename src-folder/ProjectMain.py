@@ -27,37 +27,40 @@ startTime = datetime.datetime.now()
 # Results the pointer to the collection to be used
 collection=xc.XmlCollection()
 
-abstract_Coll=collection.getAbstract()
-processing=proc.Processing()
+collection.getAbstract()
+index = IndexReader.MyIndexReader()
+print(index.getDocumentCount())
 
-number=105
-doc = []
-wr = open(Path.Result + ".xml", "w", encoding="utf8")
-for abstract in abstract_Coll:
+#processing=proc.Processing()
+
+#number=105
+#doc = []
+## Retrieves all the subjects in the collection 
+#subject_collection=collection.getSubjects()
+#
+#for subject in subject_collection:
+#    processedSubject=processing.processContent(subject)
+#    
+#for abstract in abstract_Coll:
 #    processedAbstract=processing.processContent(abstract)
 #    wr.write(str(processedAbstract)+"\n")
-    print(abstract)
-wr.close()
+#    print(abstract)
+#wr.close()
 
-    
+#number=1
 #indexwriter=IndexWriter.MyIndexWriter() 
 #indexwriter.index(u'number',processedAbstract)
 #    number+=1
 #indexwriter.close()
 
-#index = IndexReader.MyIndexReader()
-#print(index.getDocumentCount())
 
 
-## Retrieves all the subjects in the collection 
-#subject_collection=collection.getSubjects()
+
+
 #
 ## Retrives all the section in the collection 
 #
-#processing=proc.Processing()
-#for subject in subject_collection:
-#    processedSubject=processing.processContent(subject)
-#    print(processedSubject)
+
 
 
 

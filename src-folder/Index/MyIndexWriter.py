@@ -11,6 +11,7 @@ class MyIndexWriter:
     def __init__(self):
         path_dir= Path.IndexXmlDir
         schema = Schema(doc_no=ID(stored=True),
+                        doc_subject=TEXT(analyzer=RegexTokenizer(), stored=True),
                         doc_content=TEXT(analyzer=RegexTokenizer(), stored=True))
         indexing = index.create_in(path_dir, schema)
         self.writer = indexing.writer()
@@ -19,8 +20,9 @@ class MyIndexWriter:
     # This method build index for each document.
 	# NT: in your implementation of the index, you should transform your string docno into non-negative integer docids,
     # and in MyIndexReader, you should be able to request the integer docid for each docno.
-    def index(self, docNo, content):
-        self.writer.add_document(doc_no=docNo, doc_content=content)
+    def index(self, docNo, subject,content):
+#        print(content)
+        self.writer.add_document(doc_no=docNo, doc_subject=subject,doc_content=content)
         return
 
 
