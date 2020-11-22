@@ -77,11 +77,12 @@ class XmlCollection:
             subject,data=self.getData(file)
             processedSubject=processing.processContent(subject)
             processedData=processing.processContent(data)
+            print(processedData)
             indexwriter.index(file,processedSubject,processedData)
             ######################## Testing  
             count+=1
-#            if(count==5):   
-#                break
+            if(count==5):   
+                break
             
             if(count%5000==0):
                 print(count)
@@ -93,7 +94,7 @@ class XmlCollection:
         
     def getData(self,file):
         subjects = set()
-        abstract = []
+        abstract = list()
         XmlFile=open(file,"r",encoding="utf8")
         # check if there is any content in the document
         current_line=XmlFile.readline()
@@ -125,7 +126,7 @@ class XmlCollection:
                abstract_value=re.sub(r'(\&lt\;[^\&]+\&gt\;)([^\&]+|)(\&lt\;[^\&gt\;]+\&gt\;)|(\&lt\;[^\&]+\&gt\;)','',value)
                abstract_value=re.sub(r'\$\$[^\$]+\$\$','',abstract_value).replace("\n","").strip()
                #.replace('nbsp;','').replace("\n","").replace("&amp;","").strip()
-               abstract+=abstract_value
+               abstract.append(abstract_value)
            current_line=XmlFile.readline()
 #           print(str(subjects)+"\n"+str(abstract))
         return str(subjects),str(abstract)
