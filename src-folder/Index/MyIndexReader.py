@@ -35,7 +35,7 @@ class MyIndexReader:
         results = self.searcher.search(Term("doc_content", token), limit=None)
         count = 0
         for result in results:
-            words = self.searcher.stored_fields(result.docnum)["doc_content"].split(" ")
+            words = self.searcher.stored_fields(result.docnum)["doc_content"]#.split(" ")
             for word in words:
                 if word==token:
                     count+=1
@@ -46,7 +46,7 @@ class MyIndexReader:
         results = self.searcher.search(Term("doc_content", token), limit=None)
         postList = {}
         for result in results:
-            words = self.searcher.stored_fields(result.docnum)["doc_content"].split(" ")
+            words = self.searcher.stored_fields(result.docnum)["doc_content"]#.split(" ")
             count=0
             for word in words:
                 if word==token:
