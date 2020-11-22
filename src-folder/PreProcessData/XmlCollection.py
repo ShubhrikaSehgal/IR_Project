@@ -93,7 +93,7 @@ class XmlCollection:
         
     def getData(self,file):
         subjects = set()
-        abstract = list()
+        abstract = []
         XmlFile=open(file,"r",encoding="utf8")
         # check if there is any content in the document
         current_line=XmlFile.readline()
