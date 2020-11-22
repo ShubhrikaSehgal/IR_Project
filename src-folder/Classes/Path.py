@@ -16,3 +16,6 @@ IndexXmlDir="data//indexxml//"
 
 # address of generated Web index file.
 IndexWebDir="data//indexweb//"
+
+# address of query directory 
+TopicDir="data//Query//Query1.txt"

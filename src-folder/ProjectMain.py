@@ -28,10 +28,10 @@ startTime = datetime.datetime.now()
 collection=xc.XmlCollection()
 
 collection.getAbstract()
-index = IndexReader.MyIndexReader()
-print(index.getDocumentCount())
+
 
 #processing=proc.Processing()
+
 
 #number=105
 #doc = []

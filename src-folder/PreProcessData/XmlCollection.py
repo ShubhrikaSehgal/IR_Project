@@ -24,7 +24,7 @@ class XmlCollection:
         
 #        self.trecTextFile=open(Path.XmlFile,"r",encoding="utf8")
         # open file folder 
-        self.XmlFileLocation=glob.glob(Path.XmlFileFolder+ '/*.XML')
+        self.XmlFileLocation=sorted(glob.glob(Path.XmlFileFolder+ '/*.XML'))
         return
 #    ## get content of the document
 #    def getSubjects(self):
