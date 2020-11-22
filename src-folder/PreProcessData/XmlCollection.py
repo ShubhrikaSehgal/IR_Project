@@ -77,12 +77,11 @@ class XmlCollection:
             subject,data=self.getData(file)
             processedSubject=processing.processContent(subject)
             processedData=processing.processContent(data)
-            print(processedData)
             indexwriter.index(file,processedSubject,processedData)
             ######################## Testing  
             count+=1
-            if(count==5):   
-                break
+#            if(count==5):   
+#                break
             
             if(count%5000==0):
                 print(count)
