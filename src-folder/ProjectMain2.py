@@ -29,13 +29,16 @@ collection=xc.XmlCollection()
 
 #collection.getAbstract()
 index = IndexReader.MyIndexReader()
-print(index.getDocumentCount())
+# print("Number of documents in collection:", index.getDocumentCount())
 query_model=QueryRetreivalModel.QueryRetrievalModel(index)
 extractor = ExtractQuery.ExtractQuery()
 queries= extractor.getQuries()
 for query in queries:
-#    results = query_model.retrieveQuery(query, 20)
-    print(query)
+    print(query.queryContent)
+    results = query_model.retrieveQuery(query, 20)[0]
+    for doc in results:
+        print(doc.getDocNo(), doc.getScore())
+
 #query_model.retrieveQuery(queries, 20)
 #    id=index.getDocId(file)
 #    print(index.getDocLength(id))
