@@ -25,7 +25,8 @@ class Processing:
         # Normalization
         stemmedWords = []
         for token in tokens:
+            token = token.lower()
             if token not in self.sws_english:
-                stemmedWords.append(self.sno.stem(token.lower()))
+                stemmedWords.append(self.sno.stem(token))
         return stemmedWords
 
