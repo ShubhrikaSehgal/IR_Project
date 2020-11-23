@@ -24,7 +24,7 @@ class QueryRetrievalModel:
         return (wCount_D + mu*wProb_C) / (docLen + mu)
 
     def retrieveQuery(self, query, topN): #Dirichlet_
-        tokens = query.queryContent
+        tokens = query
 
         # Couldn't find a meta data value for whoosh index for this so just built it in... slow to do 4 times
         # if not self.collection_wordCount:
@@ -91,6 +91,7 @@ class QueryRetrievalModel:
             doc = Document()
             doc.setDocId(docId)
             doc.setDocNo(self.indexReader.getDocNo(docId))
+            doc.setSubject(self.indexReader.getDocSubject(docId))
             doc.setScore(docScore*(-1)) # convert back to positive number
             ret.append(doc)
 

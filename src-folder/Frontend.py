@@ -24,16 +24,16 @@ def hello_world():
         index = IndexReader.MyIndexReader()
         query_model=QueryRetreivalModel.QueryRetrievalModel(index)
         results = query_model.retrieveQuery(query_result, 20)[0]
-        result_names=[]
+        result_names={}
         for doc in results:
-            result_names.append(doc.getDocNo().replace("Springer.tar//Springer//Springer\\",''))
+            result_names[doc.getDocNo().replace("Springer.tar//Springer//Springer\\",'')]=doc.getSubject()
 #            print(doc.getDocNo().replace("Springer.tar//Springer//Springer\\",''), doc.getScore())
             
             
 #        query_model=QueryRetreivalModel.QueryRetrievalModel(index)
 #        query_retrival=query_model.retrieveQuery(query_result, 20)
             
-        return render_template('check.html', output=result_names)
+        return render_template('check.html',output=result_names)
     return render_template('index.html')
 
 if __name__ == '__main__':

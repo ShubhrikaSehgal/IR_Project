@@ -29,7 +29,6 @@ collection=xc.XmlCollection()
 
 collection.getAbstract()
 
-
 #processing=proc.Processing()
 
 
@@ -52,17 +51,9 @@ collection.getAbstract()
 #indexwriter.index(u'number',processedAbstract)
 #    number+=1
 #indexwriter.close()
-
-
-
-
-
 #
 ## Retrives all the section in the collection 
 #
-
-
-
 
 endTime = datetime.datetime.now()
 print ("Subject Collection time: ", endTime - startTime)

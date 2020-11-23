@@ -6,6 +6,7 @@ class Document:
     docid = ""
     docno = ""
     score = 0.0
+    subject=""
 
     def getDocId(self):
         return self.docid
@@ -24,3 +25,9 @@ class Document:
 
     def setScore(self, the_score):
         self.score = the_score
+        
+    def getSubject(self):
+        return self.subject
+
+    def setSubject(self, subject):
+        self.subject = subject

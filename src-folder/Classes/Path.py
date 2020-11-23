@@ -14,6 +14,8 @@ Result="data//result."
 # address of generated Text index file.
 IndexXmlDir="data//indexxml//"
 
+IndexXmlAbs="data//indexxmlabs//"
+
 # address of generated Web index file.
 IndexWebDir="data//indexweb//"
 

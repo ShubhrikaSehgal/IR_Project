@@ -11,28 +11,17 @@ class ExtractQuery:
         # 1. you should extract the 4 queries from the Path.TopicDir
         # 2. the query content of each topic should be 1) tokenized, 2) to lowercase, 3) remove stop words, 4) stemming
         # 3. you can simply pick up title only for query.
-         path_dir= Path.TopicDir
-         self.topic_file = open(path_dir,"r",encoding="utf8")
          self.tokenizer = RegexpTokenizer(r'\w+')
          self.sws_english = set(line.strip() for line in open(Path.StopwordDir, "r", encoding="utf8"))
          self.ps=SnowballStemmer("english")
-         self.query_list=self.getQueryList()
          
          return
      
-    def getQueryList(self):
-        current_line=self.topic_file.readline()
-        query_list=[]
-        if(not current_line):
-             self.topic_file.close()
-             return None
-        while(current_line):
-             query_values=Query.Query()
-             query_values.setTopicId("1")
-             query_values.setQueryContent(self.preProcessquery(current_line))
-             query_list.append(query_values)
-             current_line=self.topic_file.readline()
-        return query_list
+    def getQueryList(self,value):
+         query_values=Query.Query()
+         query_values.setTopicId("1")
+         query_values.setQueryContent(self.preProcessquery(value))
+         return query_values
     def preProcessquery(self,content):
         ## tokenized 
         bag_of_words=self.tokenizer.tokenize(content)
