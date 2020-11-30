@@ -11,13 +11,10 @@ StopwordDir="data//input//stopword.txt"
 # uncompleted address of preprocessed corpus.
 Result="data//result."
 
+ProcessedResult="data//processed."
+
 # address of generated Text index file.
 IndexXmlDir="data//indexxml//"
-
-IndexXmlAbs="data//indexxmlabs//"
-
-# address of generated Web index file.
-IndexWebDir="data//indexweb//"
 
 # address of query directory 
 TopicDir="data//Query//Query1.txt"

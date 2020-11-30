@@ -25,19 +25,37 @@ import datetime
 
 startTime = datetime.datetime.now()
 # Results the pointer to the collection to be used
-collection=xc.XmlCollection()
-
-#collection.getAbstract()
-index = IndexReader.MyIndexReader()
-# print("Number of documents in collection:", index.getDocumentCount())
-query_model=QueryRetreivalModel.QueryRetrievalModel(index)
-extractor = ExtractQuery.ExtractQuery()
-queries= extractor.getQuries()
-for query in queries:
-    print(query.queryContent)
-    results = query_model.retrieveQuery(query, 20)[0]
-    for doc in results:
-        print(doc.getDocNo(), doc.getScore())
+#collection=xc.XmlCollection()
+read = open(Path.Result + ".txt", "r", encoding="utf8")
+write=open(Path.ProcessedResult+".txt","w",encoding="utf8")
+processing=proc.Processing()
+count=0
+while( True):
+    docNo=read.readline()
+    if( docNo is None or docNo==" "):
+        break;
+    subject=read.readline()
+    content=read.readline()
+    count+=1
+    write.write(docNo+str(processing.processContent(subject))+"\n"+
+               str( processing.processContent(content))+"\n")
+    if(count%5000==0):
+        print(count)
+    if(count%52745==0):
+        print(docNo)
+        break
+write.close()
+read.close()
+##collection.getAbstract()
+#index = IndexReader.MyIndexReader()
+## print("Number of documents in collection:", index.getDocumentCount())
+#query_model=QueryRetreivalModel.QueryRetrievalModel(index)
+#extractor = ExtractQuery.ExtractQuery()
+#queries= extractor.getQuries()
+#print(queries.get)
+#results = query_model.retrieveQuery(queries, 20)[0]
+#for doc in results:
+#    print(doc.getDocNo(), doc.getScore())
 
 #query_model.retrieveQuery(queries, 20)
 #    id=index.getDocId(file)

@@ -33,10 +33,10 @@ class MyIndexWriter:
     # This method build index for each document.
 	# NT: in your implementation of the index, you should transform your string docno into non-negative integer docids,
     # and in MyIndexReader, you should be able to request the integer docid for each docno.
-    def index(self, docNo, content):
+    def index(self, docNo, subject, content):
         # content = content.split(' ')
-        self.dictionary_docno_to_index.append(docNo + ',{}\n'.format(len(content)))
-
+        self.dictionary_docno_to_index.append(docNo + ',{},{}\n'.format(len(content),subject))
+#        print(self.dictionary_docno_to_index)
         ID = len(self.dictionary_docno_to_index)-1
         for i in range(len(content)):
             word = content[i]

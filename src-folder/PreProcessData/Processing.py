@@ -21,7 +21,7 @@ class Processing:
     
     def processContent(self,content):
         # Tokenize 
-        tokens = self.tokenizer.tokenize(content)
+        tokens = self.tokenizer.tokenize(str(content))
         # Normalization
         stemmedWords = []
         for token in tokens:

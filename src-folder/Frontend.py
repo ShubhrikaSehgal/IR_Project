@@ -33,7 +33,7 @@ def hello_world():
 #        query_model=QueryRetreivalModel.QueryRetrievalModel(index)
 #        query_retrival=query_model.retrieveQuery(query_result, 20)
             
-        return render_template('check.html',output=result_names)
+        return render_template('check.html',output=result_names,Query=searchvalue)
     return render_template('index.html')
 
 if __name__ == '__main__':
