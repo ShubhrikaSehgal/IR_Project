@@ -86,6 +86,10 @@ p{
     transform: translate(3px);
   }
 }
+a{
+text-decoration: none;
+color:#000000
+}
 
 </style>
 
@@ -113,33 +117,40 @@ p{
 
 {{Query}}
 {%if length>0 %}
+{%set file_name=-1%}
     {% for k,result in output.items() %}
     <ul class="list-group">
-   
   <li class="list-group-item"> 
-  <div class="items-head">
+  <form action="/page" method="POST">
+  {%set file_name=k%}
+  <p hidden name="file_name" >{{file_name}}</p>
+  <a href="/page/{{ file_name }}"><div class="items-head">
       <p>  {{result[0]}}</p>
       <hr>
-    </div>
+    </div></a>
    <div class="items-body">
       <div class="items-body-content">
-         Subjects: {{result[1]}}
+        <span> Subjects: {{result[1]}}</span>
       </div>
       <div class="items-body-content">
-       
         <p>
         Abstract:
   {{result[2]}}
   </p>
       </div>
+      
     </div>
-
+    
+</form>
   </li>
 </ul>
 
 {% endfor %}
 {%else %}
-No results found 
+ <div class="items-head">
+      <p>  No Matching Documents</p>
+      <hr>
+    </div>
 {% endif %}
 
 

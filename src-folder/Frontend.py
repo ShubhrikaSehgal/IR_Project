@@ -15,12 +15,14 @@ import FileReader
 import Search.QueryRetreivalModel as QueryRetreivalModel
 #Datetime to get timestamps
 import datetime
+import xml.etree.ElementTree as ET
+import xml.dom.minidom
 
 index = IndexReader.MyIndexReader("xml")
 query_model=QueryRetreivalModel.QueryRetrievalModel(index)
 extractor = ExtractQuery.ExtractQuery()
 i=FileReader.FileReader()
-
+docList={}
 app = Flask(__name__)
 @app.route('/', methods=["GET", "POST"])
 def hello_world():
@@ -30,12 +32,17 @@ def hello_world():
         searchvalue =request.form.get("Search")
         query_result=extractor.preProcessquery(searchvalue)
         results = query_model.retrieveQuery(query_result, 5)[0]
+        global docList
+        docList=results
         for doc in results:
 #            result_names[doc.getDocNo().replace("Springer.tar//Springer//Springer\\",'')]=doc.getSubject()
 #            result_names[doc.getDocNo().replace("Springer.tar//Springer//Springer\\",'')]=doc.getScore()
             docNo=doc.getDocNo()
-#            print(doc.getSubject())
-            result_names[docNo]=i.content[docNo.replace("\"","")]
+            result_names[doc.getDocId()]=i.content[docNo.replace("\"","")]
+            if(len(doc.getSubject())<2):
+                if(doc.getSubject()[0]==""):
+                    result_names[doc.getDocId()][1]=searchvalue
+            
 #            print(i.content[docNo])
 #            print(doc.getDocNo().replace("Springer.tar//Springer//Springer\\",''), doc.getScore())
         endTime = datetime.datetime.now()    
@@ -45,6 +52,24 @@ def hello_world():
         return render_template('check.html',output=result_names,Query=searchvalue,length=len(results))
     
     return render_template('index.html')
+
+@app.route('/page/<docId>', methods=["GET", "POST"])
+def load_content(docId):
+     print(docId)
+    
+     global docList
+     for doc in docList:
+         if(doc.getDocId()==int(docId)):
+              file=open(str(doc.getDocNo()),"r",encoding="utf8")
+              dom = xml.dom.minidom.parse(file) # or xml.dom.minidom.parseString(xml_string)
+              pretty_xml_as_string = dom.toprettyxml()
+              print(pretty_xml_as_string)
+              return render_template('loadContent.html',xml= pretty_xml_as_string)
+#              bs = BeautifulSoup(file, 'xml')
+#              print (bs.prettify())
+#              xml = ET.fromstring(file)
+#              etree.tostring(x, pretty_print=True)
+     return render_template('index.html')
 
 # 1) user feedback - 
 # 2) subject tagging (statistics)

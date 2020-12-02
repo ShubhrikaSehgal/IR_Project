@@ -16,8 +16,8 @@ class FileReader:
          startTime = datetime.datetime.now()
          for i in range(len(data)):
              line =data[i].strip().split(':')
-             self.content[line[0]] = (line[1],
-                         line[2],line[3])
+             self.content[line[0]] = [line[1],
+                         line[2],line[3]]
          endTime = datetime.datetime.now()
          print ("Subject Collection time: ", endTime - startTime)
          return None

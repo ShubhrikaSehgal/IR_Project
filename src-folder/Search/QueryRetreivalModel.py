@@ -94,7 +94,6 @@ class QueryRetrievalModel:
             doc = Document()
             doc.setDocId(docId)
             doc.setDocNo(self.indexReader.getDocNo(docId))
-            print(self.indexReader.getDocSubject(self.indexReader.getDocNo(docId)))
             doc.setSubject(self.indexReader.getDocSubject(self.indexReader.getDocNo(docId)))
             doc.setScore(docScore*(-1)) # convert back to positive number
             ret.append(doc)
