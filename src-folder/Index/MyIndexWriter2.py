@@ -77,8 +77,11 @@ class MyIndexWriter:
             if word: # skip empty words
                 # word:docID,wordcount docID,wordcount 
                 row = self.make_row(word)
-                index_file.write(row + '\n')
-                dict_term_file.write(word +'\n') #+ ' {}\n'.format(i))
+                try:
+                    index_file.write(row + '\n')
+                    dict_term_file.write(word +'\n') #+ ' {}\n'.format(i))
+                except:
+                    print('Unknown char')
 
         index_file.close()
         dict_term_file.close()

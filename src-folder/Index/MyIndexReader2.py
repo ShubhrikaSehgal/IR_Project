@@ -22,12 +22,13 @@ class MyIndexReader:
         self.number_of_docs = len(IDs)
         self.docNo_to_docIDs = {}
         self.docIDs_to_docNo = {}
-        # self.total_words = 0                   # if want fractional frequency instead of count
+        self.total_words = 0                   # if want fractional frequency instead of count
         for i in range(len(IDs)):
+#            print(IDs[i])
             line = IDs[i].strip().split(',')
-            self.docNo_to_docIDs[line[0]] = (i, line[1])
+            self.docNo_to_docIDs[line[0]] = (i, line[1],line[2:])
             self.docIDs_to_docNo[i] = line[0]
-            # self.total_words += int(line[1])    # if want fractional frequency instead of count
+            self.total_words += int(line[1])    # if want fractional frequency instead of count
         docIDs_file.close()
         IDs=None
 
@@ -36,6 +37,12 @@ class MyIndexReader:
     # Return the integer DocumentID of input string DocumentNo.
     def getDocId(self, docNo):
         return self.docNo_to_docIDs[docNo][0]
+    
+    def getDocLength(self,docNo):
+        return int(self.docNo_to_docIDs[docNo][1])
+    
+    def getDocSubject(self, docNo):
+        return self.docNo_to_docIDs[docNo][2]
 
     # Return the string DocumentNo of the input integer DocumentID.
     def getDocNo(self, docId):

@@ -15,13 +15,14 @@ class QueryRetrievalModel:
         self.documentLength = defaultdict(int)
         self.termDocumentFreq=defaultdict(dict)
         self.mu=mu
-        self.collection_wordCount=0
-        for i in range(self.indexReader.getDocumentCount()):
-             self.collection_wordCount +=self.indexReader.getDocLength(i) 
+        self.collection_wordCount=self.indexReader.total_words
+#        print(self.indexReader.total_words)
+#        for i in range(self.indexReader.getDocumentCount()):
+#             self.collection_wordCount +=self.indexReader.getDocLength(i) 
         return
 
     def DirichletProb(self, wCount_D, wProb_C, docLen, mu):
-        return (wCount_D + mu*wProb_C) / (docLen + mu)
+        return (wCount_D + mu*wProb_C) / ((docLen) + mu)
 
     def retrieveQuery(self, query, topN): #Dirichlet_
         tokens = query
@@ -49,7 +50,7 @@ class QueryRetrievalModel:
                 # if the word exists in the index            
                 for docId in postingsLists[token].keys():
                     if docId not in docList:
-                        docList[docId] = [self.indexReader.getDocLength(docId), {}]
+                        docList[docId] = [self.indexReader.getDocLength(self.indexReader.getDocNo(docId)), {}]
 
         for token in noneInCollection:
             tokens.remove(token)
@@ -87,11 +88,14 @@ class QueryRetrievalModel:
 
         ret = []
         for i in range(topN):
+            if len(heap)==0:
+                break
             docScore, docId = heapq.heappop(heap)
             doc = Document()
             doc.setDocId(docId)
             doc.setDocNo(self.indexReader.getDocNo(docId))
-            doc.setSubject(self.indexReader.getDocSubject(docId))
+            print(self.indexReader.getDocSubject(self.indexReader.getDocNo(docId)))
+            doc.setSubject(self.indexReader.getDocSubject(self.indexReader.getDocNo(docId)))
             doc.setScore(docScore*(-1)) # convert back to positive number
             ret.append(doc)
 

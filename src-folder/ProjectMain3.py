@@ -18,10 +18,19 @@ collection=xc.XmlCollection()
 count=0
 docNo=processedresult.readline()
 while(docNo):
-    processedSubject=processedresult.readline()
-    processedData=processedresult.readline()
-    indexwriter.index(docNo," ".join(processedSubject),processedData)
+    processedSubject=processedresult.readline().strip()[1:-1].split(', ')
+    processedData=processedresult.readline().strip()
+    #'human','machin',
+    processedSubject_String = ''
+    for sub in range(len(processedSubject)):
+        processedSubject_String += processedSubject[sub][1:-1]
+        if sub < len(processedSubject)-1:
+            processedSubject_String += ','
+    indexwriter.index(docNo.strip(),processedSubject_String,processedData.replace("\'","").split(","))
     docNo=processedresult.readline()
+    if(count%5000==0):
+        print(count)
+    count+=1
     
 indexwriter.close()
 endTime = datetime.datetime.now()

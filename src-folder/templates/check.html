@@ -2,6 +2,93 @@
 <head>
 <title>Paper Search</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<style>
+p{
+  line-height:1.2em;
+  height:3.6em;
+  overflow:hidden;
+}
+* {
+  box-sizing: border-radius;
+  font-family: 'Rubik', sans-serif;
+}
+
+.container {
+  border: 1px solid black;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  display: grid;
+  place-items: center;
+  background-color: #128CFC;
+}
+
+.items {
+  width: 300px;
+  background: #fffffe;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-top: 10px solid #0B5AA2;
+}
+
+.items-head p {
+  padding: 5px 20px;
+  margin: 10px;
+  color: #0B5AA2;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.items-head hr {
+  width: 20%;
+  margin: 0px 10px;
+  border: 1px solid #0B5AA2;
+}
+
+.items-body {
+  padding: 5px;
+  margin: 10px;
+  display: grid;
+  grid-gap: 5px;
+}
+
+.items-body-content {
+  padding: 5px;
+  padding-right: 0px;
+  display: grid;
+  grid-template-columns: 10fr 1fr;
+  font-size: 13px;
+  grid-gap: 5px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.items-body-content:hover {
+  border-radius: 15px;
+  border: 1px solid #0B5AA2;
+}
+
+.items-body-content i {
+  align-self: center;
+  font-size: 15px;
+  color: #0B5AA2;
+  font-weight: bold;
+  animation: icon 1.5s infinite forwards;
+}
+
+@keyframes icon {
+  0%,100% {
+    transform: translate(0px);
+  }
+  50% {
+    transform: translate(3px);
+  }
+}
+
+</style>
+
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -13,23 +100,48 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="\">Home <span class="sr-only">(current)</span></a>
       </li>
      
     </ul>
   </div>
   <form class="form-inline my-2 my-lg-0" action="/" method="POST">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <input class="form-control mr-sm-2" type="search" placeholder={{Query}} aria-label="Search" name="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button>
     </form>
 </nav>
 
 {{Query}}
-    {% for key,value in output.items() %}
+{%if length>0 %}
+    {% for k,result in output.items() %}
     <ul class="list-group">
-  <li class="list-group-item">{{key}} </br>{{value}}</li>
+   
+  <li class="list-group-item"> 
+  <div class="items-head">
+      <p>  {{result[0]}}</p>
+      <hr>
+    </div>
+   <div class="items-body">
+      <div class="items-body-content">
+         Subjects: {{result[1]}}
+      </div>
+      <div class="items-body-content">
+       
+        <p>
+        Abstract:
+  {{result[2]}}
+  </p>
+      </div>
+    </div>
+
+  </li>
 </ul>
+
 {% endfor %}
+{%else %}
+No results found 
+{% endif %}
+
 
 </body>
 </html> 
